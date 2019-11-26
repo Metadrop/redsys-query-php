@@ -50,7 +50,7 @@ class Client extends GuzzleClient
      *
      * Example config:
      * $config = [
-     *   'logger' => new \Monolog\Logger('log'),
+     *   'logger' => $logger,
      *   'logger_format' => '{request}',
      * ];
      * @see https://github.com/guzzle/guzzle/blob/master/src/MessageFormatter.php#L14
