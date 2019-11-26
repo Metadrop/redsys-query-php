@@ -31,7 +31,7 @@ require './vendor/autoload.php';
 use RedsysConsultasPHP\Client\Client;
 
 $url = 'https://sis-t.redsys.es:25443/apl02/services/SerClsWSConsulta';
-$logger = new Logger('log');
+$logger = new \Monolog\Logger;('log');
 $logger->pushHandler(new \Monolog\Handler\RotatingFileHandler('dir_to_log/name_of_log.log'));
 $config = [
   'logger' => $logger,
