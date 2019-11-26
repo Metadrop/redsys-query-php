@@ -9,7 +9,6 @@ use RedsysConsultasPHP\Model\Transaction;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
-use Monolog\Handler\RotatingFileHandler;
 use Psr\Log\LoggerInterface;
 
 /**
