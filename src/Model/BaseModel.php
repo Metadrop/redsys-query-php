@@ -22,7 +22,10 @@ class BaseModel
     protected $Ds_Response;
 
     /**
-     * @return mixed
+     * FUC Code assigned to commerce.
+     *
+     * @return string
+     *   Merchant code.
      */
     public function getDsMerchantCode()
     {
@@ -30,7 +33,10 @@ class BaseModel
     }
 
     /**
-     * @param mixed $Ds_MerchantCode
+     * Set merchant code.
+     *
+     * @param string $Ds_MerchantCode
+     *   Merchant code.
      */
     public function setDsMerchantCode($Ds_MerchantCode)
     {
@@ -54,7 +60,10 @@ class BaseModel
     }
 
     /**
-     * @return mixed
+     * Get order identifier.
+     *
+     * @return int
+     *   Order identifier.
      */
     public function getDsOrder()
     {
@@ -62,7 +71,10 @@ class BaseModel
     }
 
     /**
-     * @param mixed $Ds_Order
+     * Set order identifier.
+     *
+     * @param int $Ds_order
+     *   Order identifier.
      */
     public function setDsOrder($Ds_Order)
     {
@@ -70,7 +82,10 @@ class BaseModel
     }
 
     /**
-     * @return mixed
+     * Get transaction type.
+     *
+     * @return int
+     *   Transaction type.
      */
     public function getDsTransactionType()
     {
@@ -78,7 +93,10 @@ class BaseModel
     }
 
     /**
-     * @param mixed $Ds_TransactionType
+     * Get transaction type.
+     *
+     * @param int $Ds_TransactionType
+     *   Transaction type.
      */
     public function setDsTransactionType($Ds_TransactionType)
     {
@@ -94,7 +112,10 @@ class BaseModel
     }
 
     /**
-     * @param mixed $Ds_Date
+     * Set order date.
+     *
+     * @param int $Ds_Date
+     *   Order date.
      */
     public function setDsDate($Ds_Date)
     {
@@ -102,7 +123,10 @@ class BaseModel
     }
 
     /**
-     * @return mixed
+     * Get order hour.
+     *
+     * @return string
+     *   Order hour.
      */
     public function getDsHour()
     {
@@ -118,7 +142,10 @@ class BaseModel
     }
 
     /**
-     * @return mixed
+     * Get order amount.
+     *
+     * @return string
+     *   Order amount.
      */
     public function getDsAmount()
     {
@@ -126,7 +153,10 @@ class BaseModel
     }
 
     /**
-     * @param mixed $Ds_Amount
+     * Set order amount.
+     *
+     * @param int $Ds_Amount
+     *   Order amount.
      */
     public function setDsAmount($Ds_Amount)
     {
