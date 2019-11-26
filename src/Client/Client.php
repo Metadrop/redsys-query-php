@@ -6,6 +6,11 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
 use RedsysConsultasPHP\Model\Transaction;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use Monolog\Handler\RotatingFileHandler;
+use Psr\Log\LoggerInterface;
 
 /**
  * Client to make queries to redsys query webservice.
@@ -34,7 +39,21 @@ class Client extends GuzzleClient
     protected $requestGenerator;
 
     /**
+     * Logger.
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Client constructor.
+     *
+     * Example config:
+     * $config = [
+     *   'logger' => new \Monolog\Logger('log'),
+     *   'logger_format' => '{request}',
+     * ];
+     * @see https://github.com/guzzle/guzzle/blob/master/src/MessageFormatter.php#L14
      *
      * @param string $webservice_url
      *   Webservice url.
@@ -47,7 +66,35 @@ class Client extends GuzzleClient
     {
         $this->webserviceUrl = $webservice_url;
         $this->requestGenerator = new RequestGenerator($trade_key);
+
+        if (isset($config['logger']) && $config['logger'] instanceof LoggerInterface) {
+            $this->logger = $config['logger'];
+            $stack = HandlerStack::create();
+            // Logger, message format.
+            $messageFormat = isset($config['logger_format']) ? $config['logger_format'] : '{request}';
+            $stack->push(
+                $this->createGuzzleLoggingMiddleware($messageFormat)
+            );
+            $config['handler'] = $stack;
+        }
         parent::__construct($config);
+    }
+
+    /**
+     * Create middleware guzzle log to capture petition info.
+     *
+     * @param string $messageFormat
+     *   Message format.
+     *
+     * @return callable
+     *   Middleware.
+     */
+    private function createGuzzleLoggingMiddleware(string $messageFormat)
+    {
+        return Middleware::log(
+            $this->logger,
+            new MessageFormatter($messageFormat)
+        );
     }
 
     /**
