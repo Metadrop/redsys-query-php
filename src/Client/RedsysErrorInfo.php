@@ -3,12 +3,12 @@
 namespace RedsysConsultasPHP\Client;
 
 /**
- * Class RedsysErrors to obtain error code info.
+ * Maps the error codes from redsys webservice with their respective messages.
  */
 class RedsysErrorInfo {
 
     /**
-     * Error codes.
+     * Mapping between redsys error codes and messages.
      */
     const ERROR_CODES = [
         'SIS0007' => 'Error al desmontar el XML de entrada o error producido al acceder mediante un sistema de firma antiguo teniendo configurado el tipo de clave HMAC SHA256',
@@ -187,10 +187,10 @@ class RedsysErrorInfo {
     ];
 
     /**
-     * Obtain an array with codes and info about these error codes.
+     * Obtain an array with redsys webservice error codes and human readable messages.
      *
      * @return array
-     *   Error codes.
+     *   Mapping error code => message.
      */
     public static function getErrorCodesInfo()
     {
@@ -198,17 +198,17 @@ class RedsysErrorInfo {
     }
 
     /**
-     * Returns error info from code.
+     * Returns human readable message from redsys webservice error code.
      *
      * @param string $code
-     *   Code identifier.
+     *   Error code.
      *
      * @return array
      *   Array key code, value code info.
      */
     public static function getErrorInfo($code)
     {
-      return self::ERROR_CODES[$code]?:'';
+      return self::ERROR_CODES[$code] ? : '';
     }
 
 }
