@@ -18,7 +18,7 @@ class RedsysException extends \Exception {
     public function __construct($error_code)
     {
         $message = $this->getMessageInfo($error_code);
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message);
     }
 
     /**
