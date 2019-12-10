@@ -156,10 +156,13 @@ class Client extends GuzzleClient
             $response = ResponseParser::parse($response);
             if (count($response->xpath('//Messages/Version/Message/ErrorMsg/Ds_ErrorCode')) == 1) {
                 list($error_code) = $response->xpath('//ErrorMsg/Ds_ErrorCode');
-                // @TODO: wrap response into an exception class to show every exception code!
-                throw new \Exception('Error ' . $error_code);
+                throw new RedsysException($error_code);
             }
-        } catch (RequestException $e) {
+        } 
+        catch (RedsysException $e) {
+          $response = null;
+        }
+        catch (RequestException $e) {
             $response = null;
         }
         return $response;
