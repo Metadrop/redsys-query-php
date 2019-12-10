@@ -4,12 +4,16 @@ namespace RedsysConsultasPHP\Client;
 
 use RedsysConsultasPHP\Client\RedsysErrorInfo;
 
+/**
+ * Exception that it's thrown when there is a problem with redsys during requests.
+ */
 class RedsysException extends \Exception {
 
     /**
      * RedsysException constructor.
      *
-     * @param $error_code
+     * @param string $error_code
+     *   Error code.
      */
     public function __construct($error_code)
     {
@@ -18,10 +22,10 @@ class RedsysException extends \Exception {
     }
 
     /**
-     * Returns message info from code.
+     * Obtain the human readable message from redsys error code.
      *
      * @param $error_code
-     *   Error code.
+     *   Redsys error code.
      *
      * @return string
      *   Message info.
