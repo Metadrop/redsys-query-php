@@ -203,8 +203,8 @@ class RedsysErrorInfo {
      * @param string $code
      *   Error code.
      *
-     * @return array
-     *   Array key code, value code info.
+     * @return string
+     *   Code info.
      */
     public static function getErrorInfo($code)
     {
