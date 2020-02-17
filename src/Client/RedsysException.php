@@ -10,15 +10,32 @@ use RedsysConsultasPHP\Client\RedsysErrorInfo;
 class RedsysException extends \Exception {
 
     /**
+     * Error code.
+     *
+     * @var string
+     */
+    protected $errorCode;
+
+    /**
      * RedsysException constructor.
      *
      * @param string $error_code
      *   Error code.
      */
-    public function __construct($error_code)
-    {
-        $message = $this->getMessageInfo($error_code);
-        parent::__construct($message, $code, $previous);
+    public function __construct($error_code) {
+        $this->errorCode = (string) $error_code;
+        $message = $this->getMessageInfo($this->errorCode);
+        parent::__construct($message);
+    }
+
+    /**
+     * Get the error code.
+     *
+     * @return string
+     *   Error code.
+     */
+    public function getErrorCode() {
+      return $this->errorCode;
     }
 
     /**
