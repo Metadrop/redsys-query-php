@@ -158,9 +158,6 @@ class Client extends GuzzleClient
                 list($error_code) = $response->xpath('//ErrorMsg/Ds_ErrorCode');
                 throw new RedsysException($error_code);
             }
-        } 
-        catch (RedsysException $e) {
-          $response = null;
         }
         catch (RequestException $e) {
             $response = null;
