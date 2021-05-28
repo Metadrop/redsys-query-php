@@ -184,6 +184,12 @@ class RedsysErrorInfo {
         'XML0028' => 'El comercio-terminal está dado de baja',
         'XML0029' => 'El elemento SignatureVersion viene vacío en el XML-String recibido',
         'XML0030' => 'El elemento "SignatureVersion" viene con un valor erróneo en el XML-String recibido',
+        'XML0038' => 'Error el elemento "Ds_fecha_inicio" es anterior a un año',
+        'XML0039' => 'Error la diferencia entre "Ds_fecha_inicio" y "Ds_fecha_fin" excede los 15 días',
+        'XML0040' => 'Error la "Ds_fecha_fin" es anterior a "Ds_fecha_inicio"',
+        'XML0041' => 'Error el comercio no puede utilizar la consulta SOAP',
+
+
     ];
 
     /**
