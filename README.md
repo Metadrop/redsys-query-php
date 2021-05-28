@@ -12,7 +12,7 @@ The spanish documentation is located in 'Consultas SOAP HMAC SHA256 2.5', in roo
 
 Use composer:
 ```bash
-composer require metadrop/redsys-consultas-php
+composer require codibit/redsys-query-php
 ```
 
 ## Examples
