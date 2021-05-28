@@ -4,7 +4,7 @@ Allow query order transactions done into spanish gateway banks that uses Sermepa
 
 This is used into webservice located in /apl02/services/SerClsWSConsulta.
 
-The spanish documentation is located in 'Consultas SOAP HMAC SHA256 2.5', in root folder.
+The spanish documentation is located in 'TPV-Virtual Consulta SOAP.pdf', in root folder.
 
 @IMPORTANT: Right now, the only services covered by this library are  'Transacción Simple' and 'Monitor Masiva'.
 
