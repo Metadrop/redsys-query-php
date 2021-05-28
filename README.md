@@ -67,7 +67,6 @@ $config = [
 ];
 $client = new Client($url, 'Introduce your merchant password', $config);
 
-$order = 'Introduce your order';
 $terminal = 'Introduce your terminal';
 $merchant_code = 'Introduce your merchant code';
 // Note: Period shouldn't be bigger than 15 days and start date can't be older than 1 year.
