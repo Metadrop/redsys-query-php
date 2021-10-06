@@ -137,6 +137,35 @@ class Client extends GuzzleClient
     }
 
     /**
+     * Get all transactions trough transactionmasiva.
+     *
+     * @param $terminal
+     *   Terminal.
+     * @param $merchant_code
+     *   Merchant code.
+     * @param int $start_date
+     *   Start from this date. Format Y-m-d-H.i.s.000000.
+     * @param int $end_date
+     *   End on this date. Format Y-m-d-H.i.s.000000.
+     * @param int $transaction_type
+     *   Transaction type (default 0). 0 for incoming transactions. 3 for refunds.
+     *
+     * @return $transactions
+     *   return array of Transaction objects.
+     */
+    public function getTransactionMasiva($terminal, $merchant_code, $start_date, $end_date, $transaction_type)
+    {
+        /* We generate a random number for Ds_Order,
+         as it is only a "fictional" number used to
+         do the signature check. */
+        $ds_order = mt_rand(10000000, 99999999);
+
+        $payload = $this->buildPayload($this->requestGenerator->transactionmasiva($ds_order, $terminal, $merchant_code, $start_date, $end_date, $transaction_type));
+        $response = $this->doRequest($payload);
+        return !empty($response) ? Transactions::fromXml($response) : NULL;
+    }
+
+    /**
      * Get all transactions trough monitormasiva.
      *
      * @param $terminal

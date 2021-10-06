@@ -81,6 +81,36 @@ class RequestGenerator
     }
 
     /**
+     * @param $terminal
+     *   Terminal.
+     * @param $merchant_code
+     *   Merchant code.
+     * @param int $start_date
+     *   Start from this date. Format Y-m-d-H.i.s.000000.
+     * @param int $end_date
+     *   End on this date. Format Y-m-d-H.i.s.000000.
+     * @param $transaction_type
+     *   Transaction type.
+     *
+     * @return string
+     *   transaction payload.
+     */
+    public function transactionmasiva($ds_order, $terminal,  $merchant_code, $start_date, $end_date, $transaction_type = 0)
+    {
+
+        $payload = "<Version Ds_Version=\"0.0\"><Message><TransactionMasiva>"
+            . "<Ds_Order>$ds_order</Ds_Order>"
+            . "<Ds_MerchantCode>$merchant_code</Ds_MerchantCode>"
+            . "<Ds_Terminal>$terminal</Ds_Terminal>"
+            . "<Ds_TransactionType>$transaction_type</Ds_TransactionType>"
+            . "<Ds_Fecha_inicio>$start_date</Ds_Fecha_inicio>"
+            . "<Ds_Fecha_fin>$end_date</Ds_Fecha_fin>"
+            . "</TransactionMasiva></Message></Version>";
+
+        return $this->wrapPayload($payload, $ds_order);
+    }
+
+    /**
      * Wrap any request payload into a common payload.
      *
      * This payload is formed by the request payload and the signature.
