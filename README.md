@@ -15,7 +15,7 @@ Right now, the services covered by this library are:
 
 Use composer:
 ```bash
-composer require codibit/redsys-query-php
+composer require metadrop/redsys-consultas-php
 ```
 
 ## Examples
