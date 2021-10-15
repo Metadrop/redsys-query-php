@@ -6,7 +6,10 @@ This is used into webservice located in /apl02/services/SerClsWSConsulta.
 
 The spanish documentation is located in 'TPV-Virtual Consulta SOAP.pdf', in root folder.
 
-@IMPORTANT: Right now, the only services covered by this library are  'Transacción Simple' and 'Monitor Masiva'.
+Right now, the services covered by this library are:
+ - Transacción Simple (Transaction)
+ - Transacción Masiva (TransactionMasiva)
+ - Monitor Masiva (MonitorMasiva)
 
 ## Installation
 
@@ -17,8 +20,8 @@ composer require codibit/redsys-query-php
 
 ## Examples
 
-### Get single transaction
-This service allows get the redsys transactions by id. 
+### Get single transaction (TransactionMasiva)
+This service allows get the redsys transactions by id.
 
 Example (also available in examples/get_transaction.php:
 
@@ -42,12 +45,12 @@ $client = new Client($url, 'Introduce your merchant password', $config);
 $order = 'Introduce your order';
 $terminal = 'Introduce your terminal';
 $merchant_code = 'Introduce your merchant code';
-$response = $client->getTransaction($order, $terminal, $merchant_code);
+$response = $client->getTransactionsByDateRangeAndType($order, $terminal, $merchant_code);
 
 print_r($response);
 
 ```
-### Get multiple transactions (Via Monitor Masiva)
+### Get multiple transactions by date (Via Monitor Masiva)
 This service allows get the redsys transactions between two dates.
 
 Example:
@@ -74,12 +77,12 @@ $start_date = "2021-05-01-00.00.00.000000"; // Y-m-d-H.i.s.000000
 $end_date = "2021-05-14-23.59.59.000000"; // Y-m-d-H.i.s.000000
 
 
-$response = $client->getMonitorMasiva($terminal, $merchant_code, $start_date, $end_date);
+$response = $client->getTransactionsByDateRange($terminal, $merchant_code, $start_date, $end_date);
 
 print_r($response);
 
 ```
-### Get multiple transactions (Via Transaction Masiva)
+### Get multiple transactions by date and type (Via Transaction Masiva)
 This service allows get the redsys transactions between two dates and a certain type of transaction.
 As far as I can tell, 0 for incoming transactions, 3 for refunds.
 

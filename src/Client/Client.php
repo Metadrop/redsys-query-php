@@ -137,7 +137,9 @@ class Client extends GuzzleClient
     }
 
     /**
-     * Get all transactions trough transactionmasiva.
+     * Get all transactions given a date range and a transaction type.
+     *
+     * It uses the TransactionMasiva soap service.
      *
      * @param $terminal
      *   Terminal.
@@ -150,10 +152,10 @@ class Client extends GuzzleClient
      * @param int $transaction_type
      *   Transaction type (default 0). 0 for incoming transactions. 3 for refunds.
      *
-     * @return $transactions
+     * @return Transactions $transactions
      *   return array of Transaction objects.
      */
-    public function getTransactionMasiva($terminal, $merchant_code, $start_date, $end_date, $transaction_type)
+    public function getTransactionsByDateRangeAndType($terminal, $merchant_code, $start_date, $end_date, $transaction_type)
     {
         /* We generate a random number for Ds_Order,
          as it is only a "fictional" number used to
@@ -162,11 +164,13 @@ class Client extends GuzzleClient
 
         $payload = $this->buildPayload($this->requestGenerator->transactionmasiva($ds_order, $terminal, $merchant_code, $start_date, $end_date, $transaction_type));
         $response = $this->doRequest($payload);
-        return !empty($response) ? Transactions::fromXml($response) : NULL;
+        return !empty($response) ? Transactions::fromXml($response) : new Transactions();
     }
 
     /**
-     * Get all transactions trough monitormasiva.
+     * Get all transactions given a date range.
+     *
+     * It uses the MonitorMasiva soap service.
      *
      * @param $terminal
      *   Terminal.
@@ -180,7 +184,7 @@ class Client extends GuzzleClient
      * @return $transactions
      *   return array of Transaction objects.
      */
-    public function getMonitorMasiva($terminal, $merchant_code, $start_date, $end_date)
+    public function getTransactionsByDateRange($terminal, $merchant_code, $start_date, $end_date)
     {
         /* We generate a random number for Ds_Order,
          as it is only a "fictional" number used to
