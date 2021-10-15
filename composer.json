@@ -1,14 +1,19 @@
 {
-    "name": "metadrop/redsys-consultas-php",
-    "description": "Permite consultar al servicio de consulta de transacciones de Redsys",
+    "name": "codibit/redsys-query-php",
+    "description": "Permite consultar al servicio de consulta de transacciones de Redsys. Paquete temporal hasta que el de metadrop tenga posibilidad de realizar consultas Monitor Masiva",
     "type": "library",
     "require": {
+        "ext-simplexml": "*",
         "guzzlehttp/guzzle": "^6.3"
     },
     "authors": [
         {
             "name": "Omar Mohamad - El Hassan Lopesino",
             "email": "omarmoper@gmail.com"
+        },
+        {
+            "name": "Victor van Herpt Valdivia",
+            "email": "victor@codibit.es"
         }
     ],
     "autoload": {

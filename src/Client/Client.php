@@ -6,6 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
 use RedsysConsultasPHP\Model\Transaction;
+use RedsysConsultasPHP\Model\Transactions;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
@@ -136,6 +137,66 @@ class Client extends GuzzleClient
     }
 
     /**
+     * Get all transactions given a date range and a transaction type.
+     *
+     * It uses the TransactionMasiva soap service.
+     *
+     * @param $terminal
+     *   Terminal.
+     * @param $merchant_code
+     *   Merchant code.
+     * @param int $start_date
+     *   Start from this date. Format Y-m-d-H.i.s.000000.
+     * @param int $end_date
+     *   End on this date. Format Y-m-d-H.i.s.000000.
+     * @param int $transaction_type
+     *   Transaction type (default 0). 0 for incoming transactions. 3 for refunds.
+     *
+     * @return Transactions $transactions
+     *   return array of Transaction objects.
+     */
+    public function getTransactionsByDateRangeAndType($terminal, $merchant_code, $start_date, $end_date, $transaction_type)
+    {
+        /* We generate a random number for Ds_Order,
+         as it is only a "fictional" number used to
+         do the signature check. */
+        $ds_order = mt_rand(10000000, 99999999);
+
+        $payload = $this->buildPayload($this->requestGenerator->transactionmasiva($ds_order, $terminal, $merchant_code, $start_date, $end_date, $transaction_type));
+        $response = $this->doRequest($payload);
+        return !empty($response) ? Transactions::fromXml($response) : new Transactions();
+    }
+
+    /**
+     * Get all transactions given a date range.
+     *
+     * It uses the MonitorMasiva soap service.
+     *
+     * @param $terminal
+     *   Terminal.
+     * @param $merchant_code
+     *   Merchant code.
+     * @param int $start_date
+     *   Start from this date. Format Y-m-d-H.i.s.000000.
+     * @param int $end_date
+     *   End on this date. Format Y-m-d-H.i.s.000000.
+     *
+     * @return $transactions
+     *   return array of Transaction objects.
+     */
+    public function getTransactionsByDateRange($terminal, $merchant_code, $start_date, $end_date)
+    {
+        /* We generate a random number for Ds_Order,
+         as it is only a "fictional" number used to
+         do the signature check. */
+        $ds_order = mt_rand(10000000, 99999999);
+
+        $payload = $this->buildPayload($this->requestGenerator->monitormasiva($ds_order, $terminal, $merchant_code, $start_date, $end_date));
+        $response = $this->doRequest($payload);
+        return !empty($response) ? Transactions::fromXml($response) : NULL;
+    }
+
+    /**
      * Do request to webservice.
      *
      * @param $payload
@@ -156,7 +217,10 @@ class Client extends GuzzleClient
             $response = ResponseParser::parse($response);
             if (count($response->xpath('//Messages/Version/Message/ErrorMsg/Ds_ErrorCode')) == 1) {
                 list($error_code) = $response->xpath('//ErrorMsg/Ds_ErrorCode');
-                throw new RedsysException($error_code);
+
+                if($response->xpath('//ErrorMsg/Ds_ErrorCode' !== 'XML0024')){ // XML0024 is not an error if requesting a date range, only an empty result
+                    throw new RedsysException($error_code);
+                }
             }
         }
         catch (RequestException $e) {
