@@ -16,7 +16,7 @@ class Transactions extends \ArrayObject {
     {
         if (!$value instanceof Transaction)
         {
-            throw new \InvalidArgumentException(sprintf('Transactions class only allow  %s', Transaction::class));
+            throw new \InvalidArgumentException(sprintf('Transactions class only allow  %s objects', Transaction::class));
         }
         parent::offsetSet($key, $value);
     }
