@@ -2,8 +2,6 @@
 
 namespace RedsysConsultasPHP\Model;
 
-use _HumbugBoxa991b62ce91e\Symfony\Component\Console\Exception\InvalidArgumentException;
-
 /**
  * Store a list of transactions.
  *
@@ -18,7 +16,7 @@ class Transactions extends \ArrayObject {
     {
         if (!$value instanceof Transaction)
         {
-            throw new InvalidArgumentException(sprintf('Transactions class only allow  %s', Transaction::class));
+            throw new \InvalidArgumentException(sprintf('Transactions class only allow  %s', Transaction::class));
         }
         parent::offsetSet($key, $value);
     }
