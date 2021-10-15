@@ -1,6 +1,6 @@
 {
     "name": "codibit/redsys-query-php",
-    "description": "Permite consultar al servicio de consulta de transacciones de Redsys. Paquete temporal hasta que el de metadrop tenga posibilidad de realizar consultas Monitor Masiva",
+    "description": "Permite consultar al servicio de consulta de transacciones de Redsys.",
     "type": "library",
     "require": {
         "ext-simplexml": "*",
