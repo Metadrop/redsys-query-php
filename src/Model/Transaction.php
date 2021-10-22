@@ -23,10 +23,12 @@ class Transaction extends BaseModel
      */
     public static function fromXml(\SimpleXMLElement $xml)
     {
-        // If we're already in the 'Response' path, skip xpath, as it will break transactions coming from the Transactions model (will get the first transaction repeatedly)
-        if($xml->getName() == 'Response'){
+        // If we're already in the 'Response' path, skip xpath, 
+        // as it will break transactions coming from the Transactions model 
+        // (will get the first transaction repeatedly)
+        if ($xml->getName() == 'Response'){
             $transaction_data = $xml;
-        }else{
+        } else {
             $transaction_data = $xml->xpath('//Messages/Version/Message/Response');
         }
 
